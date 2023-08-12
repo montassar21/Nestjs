@@ -10,12 +10,17 @@ export class SignUpDto {
   @IsEmail({}, { message: 'Please enter correct email' })
   readonly email: string;
 
+  
   @IsNotEmpty()
   @IsString()
   readonly phone: string;
 
   @IsNotEmpty()
   @IsString()
+  readonly password1: string;
+
+  @IsNotEmpty()
+  @IsString()
   @MinLength(8)
-  readonly password: string;
+  readonly password2: string;
 }

@@ -4,10 +4,9 @@ import { IsNotEmpty, IsEmail, IsString, MinLength } from '@nestjs/class-validato
 export class LoginDto {
   @IsNotEmpty()
   @IsEmail({}, { message: 'Please enter correct email' })
-  readonly email: string;
+   email: string;
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(8)
   readonly password: string;
 }
