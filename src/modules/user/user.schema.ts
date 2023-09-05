@@ -22,7 +22,7 @@ export class User {
   @Prop({
     type: String,
   })
-  picture: string;
+  image: string;
 
   @Prop({
     type: String,

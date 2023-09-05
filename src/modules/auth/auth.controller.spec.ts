@@ -1,13 +1,18 @@
+/* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 
 describe('AuthController', () => {
   let controller: AuthController;
-
+  const mockAuthServices = {
+    
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-    }).compile();
+      providers:[AuthService],
+    }).overrideProvider(AuthService).useValue(mockAuthServices).compile();
 
     controller = module.get<AuthController>(AuthController);
   });

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { InvoicesService } from './invoices.service';
 import { InvoicesDto } from '../dto/invoices.dto';
@@ -15,13 +16,13 @@ export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 
   @Post('')
-  add(@Body() body: InvoicesDto) {
-    return this.invoicesService.add(body);
+  add(@Req() req: any, @Body() body: InvoicesDto) {
+    return this.invoicesService.add(req.user, body);
   }
 
   @Get('')
-  findAll() {
-    return this.invoicesService.findAll();
+  findAll(@Req() req: any) {
+    return this.invoicesService.findAll(req.user);
   }
 
   @Get(':id')

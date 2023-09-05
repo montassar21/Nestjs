@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 import { User } from '../user/user.schema';
 
@@ -13,7 +12,7 @@ export class Product {
   @Prop()
   code: string;
 
-  @Prop()
+  @Prop({nullable:true})
   image: string;
 
   @Prop()

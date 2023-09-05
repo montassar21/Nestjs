@@ -6,43 +6,33 @@ import { User } from '../user/user.schema';
 @Schema({
   timestamps: true,
 })
-export class Client {
+export class Suppliers {
   @Prop()
   _id:string;
   
   @Prop()
-  customerName: string;
+  name: string;
 
   @Prop()
   address: string;
 
   @Prop()
-  contactNo: number;
+  contact: number;
 
   @Prop()
   email: string;
 
-  @Prop()
-  inputCity: string;
+    @Prop()
+  service: string;
 
-  @Prop()
-  state:string;
-
-  @Prop()
-  inputZip: string;
-
- 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   })
-   owner: User;
-   
-  @Prop()
-  gender: string;
-
-
+  owner: User;
 
 
 }
-export const ClientSchema = SchemaFactory.createForClass(Client);
+export const SuppliersSchema = SchemaFactory.createForClass(Suppliers);
+
+

@@ -27,6 +27,9 @@ export class Order {
   paid: number;
 
   @Prop()
+  deliverer: string;
+
+  @Prop()
   orderStatus: string;
 
   @Prop()

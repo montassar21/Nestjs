@@ -25,6 +25,9 @@ export class OrderDto {
   @IsString()
   paid: string;
 
+  @IsNotEmpty()
+  @IsString()
+  deliverer: string;
 
   @IsNotEmpty()
   @IsString()

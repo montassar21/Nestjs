@@ -7,19 +7,20 @@ import { Client } from './client.schema';
 @Injectable()
 export class ClientService {
   constructor(@InjectModel(Client.name) private clientModel: Model<Client>) {}
-  Add(body: ClientDto) {
-    return this.clientModel.create(body);
+  async add(currentUser: any, body: ClientDto) {
+    const data = Object.assign(body, { owner: currentUser._id });
+    return this.clientModel.create(data);
   }
 
-  FindAll() {
-    return this.clientModel.find();
+  findAll(currentUser: any) {
+    return this.clientModel.find({ owner: currentUser._id });
   }
 
-  FindOne(id: string) {
-    return this.clientModel.findOne({ _id: id });
+  findOne(currentUser: any, id: string) {
+    return this.clientModel.findOne({ owner: currentUser._id, _id: id });
   }
 
-  Update(id: string, body: ClientDto) {
+  update(id: string, body: ClientDto) {
     return this.clientModel.findByIdAndUpdate(
       { _id: id },
       { $set: body },
@@ -27,7 +28,7 @@ export class ClientService {
     );
   }
 
-  async Delete(id: string): Promise<any> {
+  async delete(id: string): Promise<any> {
     return this.clientModel.findOneAndRemove({ _id: id });
   }
 }

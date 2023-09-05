@@ -9,12 +9,13 @@ export class InvoicesService {
   constructor(
     @InjectModel(Invoices.name) private invoicesModel: Model<Invoices>,
   ) {}
-  add(body: InvoicesDto) {
-    return this.invoicesModel.create(body);
+  add(currentUser: any, body: InvoicesDto) {
+    const data = Object.assign(body, { owner: currentUser._id });
+    return this.invoicesModel.create(data);
   }
 
-  findAll() {
-    return this.invoicesModel.find();
+  findAll(currentUser: any) {
+    return this.invoicesModel.find({ owner: currentUser._id });
   }
 
   findOne(id: string) {

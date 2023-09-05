@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from '@nestjs/class-validator';
 
-export class ClientDto {
+export class SuppliersDto {
   @IsNotEmpty()
   @IsString()
-  customerName: string;
+  name: string;
 
   @IsNotEmpty()
   @IsString()
@@ -15,22 +15,13 @@ export class ClientDto {
   email: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  contact: number;
+
+  @IsNotEmpty()
   contactNo: number;
-
   @IsNotEmpty()
-  @IsString()
+      @IsString()
+  service: string;
 
-  inputCity: string;
-
-  @IsNotEmpty()
-  @IsString()
-  state: string;
-  
-  @IsNotEmpty()
-  @IsString()
-  inputZip: string;
-
-    @IsNotEmpty()
-  @IsString()
-  gender: string;
 }

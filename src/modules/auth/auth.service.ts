@@ -35,6 +35,7 @@ export class AuthService {
       phone,
       password: hashedPassword,
       token: token,
+      image: '../../../../assets/images/images.png',
     });
 
     return { token: token };
@@ -43,19 +44,15 @@ export class AuthService {
   async login(loginDto: LoginDto): Promise<{ token: string }> {
     const { email, password } = loginDto;
     const user = await this.userModel.findOne({ email });
-    console.log(email);
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
     const isPasswordMatched = await bcrypt.compare(password, user.password);
-
     if (!isPasswordMatched) {
       throw new UnauthorizedException('Invalid email or password');
     }
-
     const token = this.jwtService.sign({ email: user.email });
     user.token = token;
-    console.log(user.token);
     await user.save();
     return { token: token };
   }

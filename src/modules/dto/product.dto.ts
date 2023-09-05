@@ -1,8 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { IsEmpty, IsNotEmpty, IsNumber, IsString } from '@nestjs/class-validator';
 import { User } from '../user/user.schema';
+import mongoose from 'mongoose';
 
 export class ProductDto {
+  @IsNotEmpty()
+  _id: mongoose.Types.ObjectId;
+
   @IsNotEmpty()
   @IsString()
   code: string;
@@ -45,11 +49,11 @@ export class ProductDto {
   @IsNotEmpty()
   @IsString()
 
-  alert: string;
+  alert_quantity: string;
 
   @IsNotEmpty()
   expiration_date: string;
 
   @IsEmpty({message: "You can't pass user ID"})
-  readonly user: User
+  readonly owner: User
 }

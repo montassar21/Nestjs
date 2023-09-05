@@ -12,11 +12,16 @@ import { PurchasesModule } from './modules/purchases/purchases.module';
 import { InvoicesModule } from './modules/invoices/invoices.module';
 import { MiddlewareConsumer } from '@nestjs/common/interfaces';
 import { IsAuthenticated } from './core/middleware/isAuthenticated';
+import { SuppliersController } from './modules/suppliers/suppliers.controller';
+import { SuppliersModule } from './modules/suppliers/suppliers.module';
+import { DelivererController } from './modules/deliverers/deliverers.controller';
+import { DelivererModule } from './modules/deliverers/deliverers.module';
+import { TestingModule } from '@nestjs/testing';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: `.env${process.env.DB_URI}`,
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
@@ -27,6 +32,9 @@ import { IsAuthenticated } from './core/middleware/isAuthenticated';
     OrderModule,
     PurchasesModule,
     InvoicesModule,
+    SuppliersModule,
+    DelivererModule,
+    TestingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -39,6 +47,14 @@ export class AppModule {
       .apply(IsAuthenticated)
       .forRoutes('products')
       .apply(IsAuthenticated)
-      .forRoutes('orders');
+      .forRoutes('orders')
+      .apply(IsAuthenticated)
+      .forRoutes('clients')
+      .apply(IsAuthenticated)
+      .forRoutes('invoices')
+      .apply(IsAuthenticated)
+      .forRoutes('suppliers')
+      .apply(IsAuthenticated)
+      .forRoutes('deliverers');
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductDto } from '../dto/product.dto';
 import { User } from '../user/user.schema';
@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 import { now } from 'mongoose';
 import { Response } from 'express';
+import { Product } from './product.schema';
 
 @Controller('products')
 export class ProductController {
@@ -19,11 +20,12 @@ export class ProductController {
 
   @Post('')
   add(@Req() req: any, @Body() body: ProductDto) {
+  
     return this.productService.add(req.user, body);
   }
 
   @Get('')
-  findAll(@Req() req: any) {
+  async findAll(@Req() req: any){
     return this.productService.findAll(req.user);
   }
 
@@ -42,27 +44,21 @@ export class ProductController {
     return this.productService.delete(id);
   }
 
-  // @Post('upload')
-  // @UseInterceptors(
-  //   FileInterceptor('file', {
-  //     storage: diskStorage({
-  //       destination: './uploads/productsImages',
-  //       filename: (req, file, cb) => {
-  //         const filename: string = path.parse(file.originalname).name.replace(/\s/g, '');
-  //         const extension: string = path.parse(file.originalname).ext;
+  @Post('upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/productsImages',
+        filename: (req, file, cb) => {
+          const filename: string = path.parse(file.originalname).name.replace(/\s/g, '');
+          const extension: string = path.parse(file.originalname).ext;
+          cb(null, `${filename}${extension}`);
+        },
+      }),
+    }),
+  )
+  async   uploadImage(@UploadedFile()file :any) {
+    this.productService.uploadImage(file)
+  }
 
-  //         cb(null, `${filename}${extension}`);
-  //       },
-  //     }),
-  //   }),
-  // )
-  // uploadImage(@UploadedFile() file) {
-  //   this.productService.uploadImage(file);
-
-  // }
-
-  // @Get('photos/:filename')
-  //  async getPicture(@Param('filename') filename ,@Res() res:Response){
-  //   this.productService.getPicture(filename,res);
-  // }
 }

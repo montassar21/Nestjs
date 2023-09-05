@@ -1,48 +1,35 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { User } from '../user/user.schema';
 
 @Schema({
   timestamps: true,
 })
-export class Client {
+export class Deliverer {
   @Prop()
   _id:string;
   
   @Prop()
-  customerName: string;
+  name: string;
 
   @Prop()
   address: string;
 
   @Prop()
-  contactNo: number;
+  contact: number;
 
   @Prop()
   email: string;
 
-  @Prop()
-  inputCity: string;
-
-  @Prop()
-  state:string;
-
-  @Prop()
-  inputZip: string;
-
  
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Deliverer'
   })
-   owner: User;
+   owner: Deliverer;
    
-  @Prop()
-  gender: string;
-
 
 
 
 }
-export const ClientSchema = SchemaFactory.createForClass(Client);
+export const DelivererSchema = SchemaFactory.createForClass(Deliverer);
