@@ -21,7 +21,7 @@ import { TestingModule } from '@nestjs/testing';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.env${process.env.DB_URI}`,
+      envFilePath: `.env`,
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
