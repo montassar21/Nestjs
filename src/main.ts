@@ -9,6 +9,7 @@ import * as path from 'path';
 import { ValidationPipe } from '@nestjs/common';
 // import * as fastifyCors from 'fastify-cors';
 import { json } from 'express';
+import { hostname } from 'node:os';
 // import { HttpExceptionFilter } from './modules/core/interceptors/http-exception.filter';
 // import { TransformInterceptor } from './modules/core/interceptors/transform.interceptor';
 dotenv.config({ path: resolve(__dirname, '../.env') });
