@@ -16,7 +16,6 @@ import { SuppliersController } from './modules/suppliers/suppliers.controller';
 import { SuppliersModule } from './modules/suppliers/suppliers.module';
 import { DelivererController } from './modules/deliverers/deliverers.controller';
 import { DelivererModule } from './modules/deliverers/deliverers.module';
-import { TestingModule } from '@nestjs/testing';
 
 @Module({
   imports: [
@@ -34,7 +33,6 @@ import { TestingModule } from '@nestjs/testing';
     InvoicesModule,
     SuppliersModule,
     DelivererModule,
-    TestingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
